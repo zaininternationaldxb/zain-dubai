@@ -21,34 +21,37 @@ import { Badge } from "@/components/ui/badge";
 
 const REGION_META: Record<
   IntlRegion,
-  { label: string; flag: string; description: string; image: string; defaultCurrency: string }
+  { label: string; code: string; description: string; image: string; defaultCurrency: string; color: string }
 > = {
   europe: {
     label: "Europe",
-    flag: "🇪🇺",
+    code: "EU",
     description:
       "Premium properties across European capitals and coastal destinations.",
     image:
       "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=2200&q=80",
     defaultCurrency: "EUR",
+    color: "bg-blue-600",
   },
   uk: {
     label: "United Kingdom",
-    flag: "🇬🇧",
+    code: "UK",
     description:
       "Residential, commercial and investment properties across the UK.",
     image:
       "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=2200&q=80",
     defaultCurrency: "GBP",
+    color: "bg-rose-600",
   },
   pakistan: {
     label: "Pakistan",
-    flag: "🇵🇰",
+    code: "PK",
     description:
       "Luxury residences and investment opportunities in Pakistan's major cities.",
     image:
       "https://images.unsplash.com/photo-1584713836492-86c6e5c95d72?auto=format&fit=crop&w=2200&q=80",
     defaultCurrency: "PKR",
+    color: "bg-emerald-600",
   },
 };
 
@@ -120,10 +123,13 @@ export default function InternationalRegionPage() {
           </Link>
 
           <div className="mt-8">
-            <span className="text-5xl" aria-hidden="true">
-              {meta.flag}
-            </span>
-            <h1 className="mt-3 text-4xl font-extrabold tracking-tight text-white md:text-5xl">
+            <div className={cn(
+              "inline-flex h-12 w-12 items-center justify-center rounded-xl text-base font-extrabold text-white shadow-lg",
+              meta.color,
+            )}>
+              {meta.code}
+            </div>
+            <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-white md:text-5xl">
               {meta.label}
             </h1>
             <p className="mt-3 max-w-xl text-base font-medium text-white/65">

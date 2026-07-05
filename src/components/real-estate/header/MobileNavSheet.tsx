@@ -189,13 +189,13 @@ export function MobileNavSheet({
               >
                 <div className="grid gap-2">
                   {[
-                    { flag: "🇪🇺", label: "EUROPE", path: "/international/europe" },
-                    { flag: "🇬🇧", label: "UNITED KINGDOM", path: "/international/uk" },
-                    { flag: "🇵🇰", label: "PAKISTAN", path: "/international/pakistan" },
+                    { code: "EU", label: "EUROPE", path: "/international/europe" },
+                    { code: "UK", label: "UNITED KINGDOM", path: "/international/uk" },
+                    { code: "PK", label: "PAKISTAN", path: "/international/pakistan" },
                   ].map((r) => (
                     <MobileMenuItem
                       key={r.path}
-                      label={`${r.flag} ${r.label}`}
+                      label={`${r.code}  ${r.label}`}
                       onClick={() => {
                         navigate(r.path);
                         onOpenChange(false);

@@ -6,21 +6,24 @@ const REGIONS = [
   {
     key: "europe",
     label: "Europe",
-    flag: "🇪🇺",
+    code: "EU",
+    color: "bg-blue-600",
     description: "Premium properties across European capitals",
     href: "/international/europe",
   },
   {
     key: "uk",
     label: "United Kingdom",
-    flag: "🇬🇧",
+    code: "UK",
+    color: "bg-rose-600",
     description: "Residential & commercial listings in the UK",
     href: "/international/uk",
   },
   {
     key: "pakistan",
     label: "Pakistan",
-    flag: "🇵🇰",
+    code: "PK",
+    color: "bg-emerald-600",
     description: "Luxury & investment properties in major cities",
     href: "/international/pakistan",
   },
@@ -86,9 +89,12 @@ export function InternationalMegaMenu({
                       "focus:outline-none focus-visible:ring-2 focus-visible:ring-[hsl(var(--brand))]/25",
                     )}
                   >
-                    <span className="mt-0.5 text-3xl leading-none" aria-hidden="true">
-                      {r.flag}
-                    </span>
+                    <div className={cn(
+                      "mt-0.5 flex h-10 w-12 flex-shrink-0 items-center justify-center rounded-lg text-sm font-extrabold text-white",
+                      r.color,
+                    )}>
+                      {r.code}
+                    </div>
 
                     <div className="min-w-0 flex-1">
                       <div className="flex items-center justify-between gap-2">

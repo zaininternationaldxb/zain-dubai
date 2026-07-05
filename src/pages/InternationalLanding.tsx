@@ -9,7 +9,8 @@ const REGIONS = [
   {
     key: "europe",
     label: "Europe",
-    flag: "🇪🇺",
+    code: "EU",
+    color: "bg-blue-600",
     image:
       "https://images.unsplash.com/photo-1467269204594-9661b134dd2b?auto=format&fit=crop&w=1600&q=80",
     description:
@@ -20,7 +21,8 @@ const REGIONS = [
   {
     key: "uk",
     label: "United Kingdom",
-    flag: "🇬🇧",
+    code: "UK",
+    color: "bg-rose-600",
     image:
       "https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&w=1600&q=80",
     description:
@@ -31,7 +33,8 @@ const REGIONS = [
   {
     key: "pakistan",
     label: "Pakistan",
-    flag: "🇵🇰",
+    code: "PK",
+    color: "bg-emerald-600",
     image:
       "https://images.unsplash.com/photo-1584713836492-86c6e5c95d72?auto=format&fit=crop&w=1600&q=80",
     description:
@@ -93,7 +96,9 @@ export default function InternationalLandingPage() {
                   "hover:bg-white/15 transition",
                 )}
               >
-                <span>{r.flag}</span>
+                <span className={cn("inline-flex h-5 w-7 items-center justify-center rounded text-[10px] font-bold text-white", r.color)}>
+                  {r.code}
+                </span>
                 {r.label}
                 <ArrowRight className="h-4 w-4 opacity-70" />
               </Link>
@@ -130,10 +135,10 @@ export default function InternationalLandingPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
                   <div className="absolute bottom-0 left-0 p-5">
-                    <span className="text-3xl" aria-hidden="true">
-                      {r.flag}
-                    </span>
-                    <div className="mt-1 text-xl font-extrabold text-white">
+                    <div className={cn("inline-flex h-9 w-12 items-center justify-center rounded-lg text-sm font-extrabold text-white shadow-md", r.color)}>
+                      {r.code}
+                    </div>
+                    <div className="mt-2 text-xl font-extrabold text-white">
                       {r.label}
                     </div>
                     <div className="mt-1 text-xs font-semibold text-white/70">
