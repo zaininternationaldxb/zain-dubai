@@ -55,7 +55,7 @@ export default function InternationalLandingPage() {
       <RealEstateHeader />
 
       {/* Hero */}
-      <section className="relative overflow-hidden bg-[#0a0f1e] pt-[132px] pb-20">
+      <section className="relative overflow-hidden bg-[#0a0f1e] pt-[132px] pb-20 md:pt-[152px]">
         <div
           className="pointer-events-none absolute inset-0 opacity-25"
           style={{
@@ -68,7 +68,7 @@ export default function InternationalLandingPage() {
           <div className="absolute right-1/4 bottom-0 h-[200px] w-[400px] rounded-full bg-[hsl(var(--brand-2))]/10 blur-3xl" />
         </div>
 
-        <div className="relative mx-auto max-w-7xl px-4 text-center">
+        <div className="relative mx-auto max-w-7xl px-4 pt-10 text-center">
           <div className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-xs font-semibold tracking-[0.15em] text-white/70 ring-1 ring-white/15">
             <Globe className="h-3.5 w-3.5" />
             GLOBAL REAL ESTATE
