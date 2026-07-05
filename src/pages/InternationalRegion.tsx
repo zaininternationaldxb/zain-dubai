@@ -101,19 +101,21 @@ export default function InternationalRegionPage() {
       <RealEstateHeader />
 
       {/* Hero */}
-      <section className="relative overflow-hidden pt-[132px] pb-16">
+      <section className="relative overflow-hidden bg-[#0d1224] pt-[132px] pb-20">
+        {/* Background image */}
         <div
-          className="absolute inset-0 -z-10"
+          className="absolute inset-0"
           style={{
             backgroundImage: `url(${meta.image})`,
             backgroundSize: "cover",
             backgroundPosition: "center",
+            opacity: 0.25,
           }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-[#0a0f1e]/80 via-[#0a0f1e]/60 to-[hsl(var(--page))]" />
-        </div>
+        />
+        {/* Always-dark overlay so text is readable even if image fails */}
+        <div className="absolute inset-0 bg-[#0d1224]/60" />
 
-        <div className="mx-auto max-w-7xl px-4">
+        <div className="relative mx-auto max-w-7xl px-4">
           <Link
             to="/international"
             className="inline-flex items-center gap-2 rounded-[5px] bg-white/10 px-3 py-2 text-sm font-semibold text-white/80 ring-1 ring-white/15 hover:bg-white/15 transition"
@@ -132,7 +134,7 @@ export default function InternationalRegionPage() {
             <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-white md:text-5xl">
               {meta.label}
             </h1>
-            <p className="mt-3 max-w-xl text-base font-medium text-white/65">
+            <p className="mt-3 max-w-xl text-base font-medium text-white/70">
               {meta.description}
             </p>
             <div className="mt-4 inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-sm font-semibold text-white/80">
