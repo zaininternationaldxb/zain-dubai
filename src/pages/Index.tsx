@@ -392,8 +392,6 @@ const Index = () => {
         </div>
       </section>
 
-      <ExperienceStatsStrip className="-mt-2" stats={liveStats} />
-
       <ScrollingTextSeparator label="A handpicked edit" />
 
       <CuratedOpportunities
