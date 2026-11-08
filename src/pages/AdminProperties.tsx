@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   ArrowLeft,
+  Download,
   Filter,
   Image as ImageIcon,
   Plus,
@@ -23,6 +24,10 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { cn } from "@/lib/utils";
+import {
+  downloadBlob,
+  exportListingsZip,
+} from "@/lib/export-listings-zip";
 import { seedPremiumListings } from "@/components/admin/seed-premium-listings";
 import { SmartImage } from "@/components/real-estate/SmartImage";
 import { Badge } from "@/components/ui/badge";
@@ -513,6 +518,35 @@ export default function AdminPropertiesPage() {
     }
   };
 
+  const [exporting, setExporting] = useState<string | null>(null);
+
+  const exportAll = async () => {
+    setExporting("Preparing...");
+    try {
+      const result = await exportListingsZip((p) =>
+        setExporting(`Photos ${p.done}/${p.total}`),
+      );
+      downloadBlob(
+        result.blob,
+        `zain-listings-${new Date().toISOString().slice(0, 10)}.zip`,
+      );
+      toast({
+        title: "Export ready",
+        description: `${result.listings} listings, ${result.images} photos${
+          result.failed ? `, ${result.failed} photos failed (see failed-images.txt)` : ""
+        }.`,
+      });
+    } catch (error) {
+      toast({
+        title: "Export failed",
+        description: formatPropertyAdminError(error),
+        variant: "destructive",
+      });
+    } finally {
+      setExporting(null);
+    }
+  };
+
   const load = async () => {
     setLoading(true);
     try {
@@ -820,6 +854,16 @@ export default function AdminPropertiesPage() {
                     >
                       <Plus className="mr-2 h-4 w-4" />
                       New property
+                    </Button>
+
+                    <Button
+                      variant="outline"
+                      className="h-10 rounded-[5px] bg-white/70"
+                      onClick={exportAll}
+                      disabled={!!exporting}
+                    >
+                      <Download className="mr-2 h-4 w-4" />
+                      {exporting ?? "Download all (ZIP)"}
                     </Button>
 
                     <Button
