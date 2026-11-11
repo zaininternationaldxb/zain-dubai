@@ -1,4 +1,5 @@
-import { ArrowUpRight, Tag } from "lucide-react";
+import { useMemo, useRef, useState } from "react";
+import { ArrowUpRight, ChevronLeft, ChevronRight, Tag } from "lucide-react";
 
 import { SmartImage } from "@/components/real-estate/SmartImage";
 import type { PublicProperty as Property } from "@/hooks/use-published-properties";
@@ -18,6 +19,25 @@ export function CuratedLaunchCard({
   onOpen: () => void;
   className?: string;
 }) {
+  const images = useMemo(
+    () =>
+      Array.from(
+        new Set(
+          [property.coverImage, ...(property.gallery ?? [])].filter(Boolean),
+        ),
+      ),
+    [property.coverImage, property.gallery],
+  );
+  const [index, setIndex] = useState(0);
+  const touchStartX = useRef<number | null>(null);
+  const hasMany = images.length > 1;
+  const current = images[Math.min(index, images.length - 1)] ?? property.coverImage;
+
+  const go = (event: { stopPropagation: () => void }, step: number) => {
+    event.stopPropagation();
+    setIndex((i) => (i + step + images.length) % images.length);
+  };
+
   return (
     <article
       className={cn(
@@ -27,6 +47,17 @@ export function CuratedLaunchCard({
         "shadow-[0_26px_90px_-65px_rgba(0,0,0,0.7)]",
         className,
       )}
+      onTouchStart={(e) => {
+        touchStartX.current = e.touches[0].clientX;
+      }}
+      onTouchEnd={(e) => {
+        if (!hasMany || touchStartX.current === null) return;
+        const dx = e.changedTouches[0].clientX - touchStartX.current;
+        touchStartX.current = null;
+        if (Math.abs(dx) > 40) {
+          setIndex((i) => (i + (dx < 0 ? 1 : -1) + images.length) % images.length);
+        }
+      }}
     >
       <button
         type="button"
@@ -37,7 +68,8 @@ export function CuratedLaunchCard({
 
       <div className="relative z-[1]">
         <SmartImage
-          src={property.coverImage}
+          key={current}
+          src={current}
           alt={property.title}
           className="h-[440px] w-full object-cover transition duration-700 group-hover:scale-[1.03] sm:h-[520px]"
           loading="lazy"
@@ -46,6 +78,40 @@ export function CuratedLaunchCard({
         <div className="pointer-events-none absolute inset-0 bg-black/10" />
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-black/10" />
       </div>
+
+      {hasMany ? (
+        <>
+          <button
+            type="button"
+            onClick={(e) => go(e, -1)}
+            aria-label="Previous photo"
+            className={cn(
+              "absolute left-3 top-[42%] z-[4] inline-flex h-10 w-10 items-center justify-center rounded-full",
+              "bg-black/35 text-white ring-1 ring-white/40 backdrop-blur transition",
+              "hover:bg-black/55 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80",
+              "sm:opacity-0 sm:group-hover:opacity-100 sm:focus-visible:opacity-100",
+            )}
+          >
+            <ChevronLeft className="h-5 w-5" />
+          </button>
+          <button
+            type="button"
+            onClick={(e) => go(e, 1)}
+            aria-label="Next photo"
+            className={cn(
+              "absolute right-3 top-[42%] z-[4] inline-flex h-10 w-10 items-center justify-center rounded-full",
+              "bg-black/35 text-white ring-1 ring-white/40 backdrop-blur transition",
+              "hover:bg-black/55 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80",
+              "sm:opacity-0 sm:group-hover:opacity-100 sm:focus-visible:opacity-100",
+            )}
+          >
+            <ChevronRight className="h-5 w-5" />
+          </button>
+          <div className="pointer-events-none absolute left-1/2 top-[84px] z-[4] -translate-x-1/2 rounded-full bg-black/40 px-2.5 py-1 text-[11px] font-bold tracking-wide text-white ring-1 ring-white/25 backdrop-blur">
+            {Math.min(index, images.length - 1) + 1} / {images.length}
+          </div>
+        </>
+      ) : null}
 
       <div className="pointer-events-none absolute left-0 right-0 top-0 z-[3] p-5">
         <div className="flex items-start justify-between gap-4">
