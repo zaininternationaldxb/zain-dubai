@@ -766,9 +766,9 @@ const Index = () => {
                   Contact Information
                 </div>
                 <div className="mt-3 grid gap-2 text-sm text-muted-foreground">
-                  <div>Direct / WhatsApp: +971 50 503 3721</div>
+                  <div>Direct / WhatsApp: +971 52 136 2224</div>
                   <div>Direct / WhatsApp: +44 7818 112091</div>
-                  <div>Email: info@zaindubai.com</div>
+                  <div>Email: ask@zaindubai.com</div>
                   <div>Website: www.zaindubai.com</div>
                 </div>
               </div>
@@ -824,9 +824,9 @@ const Index = () => {
                   label: "Address",
                   value: "Tamani Arts Office Tower, Business Bay, Dubai, U.A.E.",
                 },
-                { label: "Email", value: "info@zaindubai.com" },
+                { label: "Email", value: "ask@zaindubai.com" },
                 { label: "Visit Us", value: "www.zaindubai.com" },
-                { label: "Call / WhatsApp", value: "+971 50 5033721" },
+                { label: "Call / WhatsApp", value: "+971 52 136 2224" },
               ].map((i) => (
 
                 <div

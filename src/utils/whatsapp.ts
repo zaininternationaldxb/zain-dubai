@@ -1,4 +1,4 @@
-export const DEFAULT_WHATSAPP_NUMBER = "+971 50 5033721";
+export const DEFAULT_WHATSAPP_NUMBER = "+971 52 136 2224";
 
 function labelLine(label: string, value?: string) {
   const normalized = value?.trim();

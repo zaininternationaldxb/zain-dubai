@@ -390,7 +390,7 @@ export function SiteFooter({
                         EMAIL
                       </div>
                       <div className="mt-2 text-sm font-semibold text-[#0b1025]/85">
-                        info@zaindubai.com
+                        ask@zaindubai.com
                       </div>
                     </div>
 
@@ -408,7 +408,7 @@ export function SiteFooter({
                         CALL / WHATSAPP
                       </div>
                       <div className="mt-2 text-sm font-semibold text-[#0b1025]/85">
-                        +971 50 5033721
+                        +971 52 136 2224
                       </div>
                     </div>
                   </div>
