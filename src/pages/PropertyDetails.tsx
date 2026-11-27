@@ -224,7 +224,7 @@ export default function PropertyDetailsPage() {
                   </div>
                 </div>
 
-                <p className="mt-5 text-sm leading-relaxed text-foreground/80">
+                <p className="mt-5 whitespace-pre-line text-sm leading-relaxed text-foreground/80">
                   {property.description}
                 </p>
 
