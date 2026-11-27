@@ -1,0 +1,37 @@
+name: Supabase keep-alive
+
+# Supabase pauses free projects after about a week without activity.
+# This job touches the database once a day: it reads a listing, adds a row
+# to the empty `keepalive` table and deletes it again.
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    env:
+      SUPABASE_URL: https://jcizvdbndmyybtenxemd.supabase.co
+      SUPABASE_ANON_KEY: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpjaXp2ZGJuZG15eWJ0ZW54ZW1kIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTQxNDkxMzMsImV4cCI6MjEwOTcyNTEzM30.zSSlRGNzYGVlf_CWtm_kFT6vmtqDblkacK0YMZ_5aSA
+    steps:
+      - name: Read a listing (fails the job if the database is unreachable)
+        run: |
+          curl --fail --silent --show-error --retry 3 \
+            "$SUPABASE_URL/rest/v1/properties?select=id&limit=1" \
+            -H "apikey: $SUPABASE_ANON_KEY" -H "Authorization: Bearer $SUPABASE_ANON_KEY"
+
+      - name: Add a row to keepalive
+        run: |
+          curl --fail --silent --show-error --retry 3 -X POST \
+            "$SUPABASE_URL/rest/v1/keepalive" \
+            -H "apikey: $SUPABASE_ANON_KEY" -H "Authorization: Bearer $SUPABASE_ANON_KEY" \
+            -H "Content-Type: application/json" -H "Prefer: return=minimal" \
+            -d "{}"
+
+      - name: Delete the keepalive rows
+        run: |
+          curl --fail --silent --show-error --retry 3 -X DELETE \
+            "$SUPABASE_URL/rest/v1/keepalive?id=not.is.null" \
+            -H "apikey: $SUPABASE_ANON_KEY" -H "Authorization: Bearer $SUPABASE_ANON_KEY"
